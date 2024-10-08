@@ -2,11 +2,11 @@
 const initialTravellers = [
   {
     id: 1, name: 'Jack', age: 80, gender: 'Male', phone: 88885555,
-    bookingTime: new Date()
+    bookingTime: new Date(), specialRequest: "No special request."
   },
   {
     id: 2, name: 'Rose', age: 25, gender: 'Female', phone: 88884444,
-    bookingTime: new Date()
+    bookingTime: new Date(), specialRequest: "No special request."
   },
 ];
 
