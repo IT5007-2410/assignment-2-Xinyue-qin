@@ -1,14 +1,14 @@
 /*Q1. JS Variable needs to be created here. Below variable is just an example. Try to add more attributes.*/
 const initialTravellers = [
   {
-    id: 1, name: 'Jack', age: 80, gender: 'Male', phone: 88885555,
-    bookingTime: new Date(), specialRequest: "No special request."
+    id: 1, name: 'Jack', age: 80, phone: 88885555,
+    email: "Jack3340@gmail.com", bookingTime: new Date()
   },
   {
-    id: 2, name: 'Rose', age: 25, gender: 'Female', phone: 88884444,
-    bookingTime: new Date(), specialRequest: "No special request."
-  },
+    id: 2, name: 'Rose', age: 25, phone: 88884444,
+    email: "rosej0093@gmail.com", bookingTime: new Date()}
 ];
+var currentID = 2;
 
 
 function TravellerRow(props) {
@@ -51,13 +51,20 @@ class Add extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     /*Q4. Fetch the passenger details from the add form and call bookTraveller()*/
+    const form = document.forms.bookTraveller;
+    console.log(form.travellername.value, form.travellerage.value, form.travellerphone.value, form.travelleremail.value);
+    //code to add the traveller
+    this.props.addfunction(form.travellername.value, form.travellerage.value, form.travellerphone.value, form.travelleremail.value);
   }
 
   render() {
     return (
-      <form name="addTraveller" onSubmit={this.handleSubmit}>
+      <form name="bookTraveller" onSubmit={this.handleSubmit}>
 	    {/*Q4. Placeholder to enter passenger details. Below code is just an example.*/}
         <input type="text" name="travellername" placeholder="Name" />
+        <input type="number" name="travellerage" placeholder="Age" />
+        <input type="number" name="travellerphone" placeholder="Phone" />
+        <input type="email" name="travelleremail" placeholder="Email" />
         <button>Add</button>
       </form>
     );
@@ -122,12 +129,29 @@ class TicketToRide extends React.Component {
   }
   loadData() {
     setTimeout(() => {
-      this.setState({travellers: initialTravellers });
+      this.setState({travellers: initialTravellers, ID: currentID});
     }, 500);
   }
 
-  bookTraveller(passenger) {
-	    /*Q4. Write code to add a passenger to the traveller state variable.*/
+  bookTraveller(passengername, passengerage, passengerphone, passengeremail) {
+	  /*Q4. Write code to add a passenger to the traveller state variable.*/
+    console.log("addTraveller: ", passengername, passengerage, passengerphone, passengeremail);
+    //actural add
+    var ID = this.state.ID + 1;
+    var newpassenger =  {
+      id: ID, name: passengername, age: passengerage, phone: passengerphone,
+      email: passengeremail, bookingTime: new Date()
+    };
+    this.state.travellers.push(newpassenger);
+    this.setState({ID: ID});
+    //this.state.travellers.forEach(element => {
+      //if (element.name != passenger){newlist.push(element)};
+    //});
+    //this.setState({travellers:newlist})
+    //console.log(this.state.travellers);
+    //console.log(newlist)
+    //    this.props.addfunction(form.travellername.value, form.travellerage.value, form.travellerphone.value, form.travelleremail.value);
+  
   }
 
   deleteTraveller(passenger) {
@@ -156,6 +180,7 @@ class TicketToRide extends React.Component {
 		{/*Q3. Code to call component that Displays Travellers.*/}
 		
 		{/*Q4. Code to call the component that adds a traveller.*/}
+    <Add addfunction={this.bookTraveller}/>
 		{/*Q5. Code to call the component that deletes a traveller based on a given attribute.*/}
     <Delete deletefunction={this.deleteTraveller}/>
 	</div>
