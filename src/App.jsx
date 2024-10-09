@@ -1,3 +1,5 @@
+const { Component } = React;
+
 /*Q1. JS Variable needs to be created here. Below variable is just an example. Try to add more attributes.*/
 const initialTravellers = [
   {
@@ -27,7 +29,7 @@ class Display extends React.Component {
   render() {
     const traveller = this.props.travellerprop;
 	/*Q3. Write code to render rows of table, reach corresponding to one traveller. Make use of the TravellerRow function that draws one row.*/
-    const TravellerRows = traveller.map(i=><tr><td>{i.id}</td><td>{i.name}</td><td>{i.age}</td><td>{i.phone}</td><td>{i.email}</td><td>{i.bookingTime}</td></tr>);
+    const TravellerRows = traveller.map(i=><tr key={i.id}><td>{i.id}</td><td>{i.name}</td><td>{i.age}</td><td>{i.phone}</td><td>{i.email}</td><td>{i.bookingTime}</td></tr>); //add key = {i.id} (unique ID) here as the key
   return (
     <table className="bordered-table">
       <thead>
@@ -181,19 +183,19 @@ class TicketToRide extends React.Component {
     return (
       <div>
         <h1>Ticket To Ride</h1>
-	<div>
-	    {/*Q2. Code for Navigation bar. Use basic buttons to create a nav bar. Use states to manage selection.*/}
-	</div>
-	<div>
-		{/*Only one of the below four divisions is rendered based on the button clicked by the user.*/}
-		{/*Q2 and Q6. Code to call Instance that draws Homepage. Homepage shows Visual Representation of free seats.*/}
-		{/*Q3. Code to call component that Displays Travellers.*/}
+	      <div>
+	      {/*Q2. Code for Navigation bar. Use basic buttons to create a nav bar. Use states to manage selection.*/}
+	      </div>
+	      <div>
+		      {/*Only one of the below four divisions is rendered based on the button clicked by the user.*/}
+		      {/*Q2 and Q6. Code to call Instance that draws Homepage. Homepage shows Visual Representation of free seats.*/}
+		      {/*Q3. Code to call component that Displays Travellers.*/}
     <Display travellerprop={this.state.travellers}/>
-		{/*Q4. Code to call the component that adds a traveller.*/}
+		      {/*Q4. Code to call the component that adds a traveller.*/}
     <Add addfunction={this.bookTraveller}/>
-		{/*Q5. Code to call the component that deletes a traveller based on a given attribute.*/}
+		      {/*Q5. Code to call the component that deletes a traveller based on a given attribute.*/}
     <Delete deletefunction={this.deleteTraveller}/>
-	</div>
+	      </div>
       </div>
     );
   }
