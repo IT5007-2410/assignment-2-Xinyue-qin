@@ -9,8 +9,8 @@ const initialTravellers = [
     id:2, name: 'Rose', age: 25, phone: 88884444,
     email: "rosej0093@gmail.com", bookingTime: '2024-02-10'}
 ];
-var currentID = 2;
-
+const currentID = 2;
+const passengerNumber = 2;
 // function TravellerRow(props) {
 //   {/*Q3. Placeholder to initialize local variable based on traveller prop.*/
 //   //const travellerRow = {};
@@ -126,8 +126,8 @@ class Homepage extends React.Component {
 class TicketToRide extends React.Component {
   constructor() {
     super();
-    this.state = { travellers: [], showSelectorCount: 0};
-    this.showSelector = this.showSelector.bind(this);
+    this.state = {travellers: [], showSelectorCount: 0, passengerNumber: 0};
+    this.showSelector = this.showSelector.bind(this); //"bind" method is used to pass the context (e.g. "this") to javascript function when it will trigger.
     this.bookTraveller = this.bookTraveller.bind(this);
     this.deleteTraveller = this.deleteTraveller.bind(this);
   }
@@ -135,7 +135,7 @@ class TicketToRide extends React.Component {
   showSelector(count)
   {
   	/*Q2. Function to set the value of component selector variable based on user's button click.*/
-    this.setState({ showSelectorCount: count});
+    this.setState({showSelectorCount: count});
   }
 
   componentDidMount() {
@@ -147,7 +147,7 @@ class TicketToRide extends React.Component {
   }
   loadData() {
     setTimeout(() => {
-      this.setState({travellers: initialTravellers, ID: currentID});
+      this.setState({travellers: initialTravellers, ID: currentID, passengerNumber: 2});
     }, 500);
   }
 
@@ -156,12 +156,20 @@ class TicketToRide extends React.Component {
     console.log("addTraveller: ", passengername, passengerage, passengerphone, passengeremail, passengerbookingTime);
     //actural add
     var ID = this.state.ID + 1;
+    var passengerNumber = this.state.passengerNumber + 1;
     var newpassenger =  {
       id: ID, name: passengername, age: passengerage, phone: passengerphone,
       email: passengeremail, bookingTime: passengerbookingTime
     };
-    this.state.travellers.push(newpassenger);
-    this.setState({ID: ID});
+    if (passengerNumber > 10) { //overflow case assuming that the train has 10 seats in total
+      alert("No free seats now!");
+    } else {
+      this.state.travellers.push(newpassenger);
+      this.setState({ID: ID, passengerNumber: passengerNumber});
+      alert("Added!");
+    }
+    //this.state.travellers.push(newpassenger);
+    //this.setState({ID: ID, passengerNumber: passengerNumber});
     //this.state.travellers.forEach(element => {
       //if (element.name != passenger){newlist.push(element)};
     //});
@@ -176,7 +184,31 @@ class TicketToRide extends React.Component {
 	  /*Q5. Write code to delete a passenger from the traveller state variable.*/
     console.log("deleteTraveller: ", passenger);
     //actural deletion 
-    var newlist = []
+    var newlist = [];
+    var newpassengerNumber = 0;
+    var passengerNumber = this.state.passengerNumber;
+    if (passengerNumber < 1) { //overflow case assuming that the train has 10 seats in total
+      alert("No passengers to delete now!");
+    } else {
+      this.state.travellers.forEach(element => {
+        if (element.name != passenger){
+          newlist.push(element);
+          newpassengerNumber = newpassengerNumber + 1};
+      });
+      this.setState({travellers:newlist})
+      console.log(this.state.travellers);
+      console.log(newlist)
+        if (newpassengerNumber == passengerNumber){
+          alert("Passengers not found!");
+        }
+        else{
+          this.setState({passengerNumber: newpassengerNumber});
+          alert("Deleted!");
+        }
+      
+  /////////////////////////
+    }
+
     this.state.travellers.forEach(element => {
       if (element.name != passenger){newlist.push(element)};
     });
