@@ -11,19 +11,6 @@ const initialTravellers = [
 ];
 const currentID = 2;
 const passengerNumber = 2;
-// function TravellerRow(props) {
-//   {/*Q3. Placeholder to initialize local variable based on traveller prop.*/
-//   //const travellerRow = {};
-//   }
-//   return (
-//     <div>
-//       <tr>
-//       {/*Q3. Placeholder for rendering one row of a table with required traveller attribute values.*/
-//       <td> {props['id']}</td><td>{props['name']}</td>}
-//       </tr>
-//     </div>
-//   );
-// }
 
 class Display extends React.Component {
   constructor() {
@@ -31,11 +18,12 @@ class Display extends React.Component {
   }
   render() {
     const traveller = this.props.travellerprop;
+    const hstyle = {color: 'blue', lineHeight: 1, padding: '1.5em'};
 	/*Q3. Write code to render rows of table, reach corresponding to one traveller. Make use of the TravellerRow function that draws one row.*/
     const TravellerRows = traveller.map(i=><tr key={i.id}><td>{i.id}</td><td>{i.name}</td><td>{i.age}</td><td>{i.phone}</td><td>{i.email}</td><td>{i.bookingTime}</td></tr>); //add key = {i.id} (unique ID) here as the key
   return (
     <div>
-    <h3>
+    <h3 style={hstyle}>
        {'Display Traveller'}
     </h3>
     <table className="Display Travellers">
@@ -76,9 +64,10 @@ class Add extends React.Component {
   }
 
   render() {
+    const hstyle = {color: 'blue', lineHeight: 1, padding: '1.5em'};
     return (
       <div>
-      <h3>
+      <h3 style={hstyle}>
          {'Add Traveller'}
       </h3>
       <form name="bookTraveller" onSubmit={this.handleSubmit}>
@@ -111,9 +100,10 @@ class Delete extends React.Component {
   }
 
   render() {
+    const hstyle = {color: 'blue', lineHeight: 1, padding: '1.5em'};
     return (
       <div>
-      <h3>
+      <h3 style = {hstyle}>
          {'Delete Traveller'}
       </h3>
       <form name="deleteTraveller" onSubmit={this.handleSubmit}>
@@ -132,10 +122,12 @@ class Homepage extends React.Component {
 	}
 	render(){
     const passengerColor = this.props.passengerColor;
+    const hstyle = {color: 'blue', lineHeight: 1, padding: '1.5em'};
     //const emptySeats = 10 - passengerNumber;
     //const passengerColor = ['green'] * emptySeats + ['grey'] * passengerNumber;
     console.log(passengerColor);
-    /*Q3. Write code to render rows of table, reach corresponding to one traveller. Make use of the TravellerRow function that draws one row.*/
+    /*Q3. Write code to render rows of table, reach corresponding
+     to one traveller. Make use of the TravellerRow function that draws one row.*/
     //const seatMapRows =passengerColor.map(i=><tr key={Math.random()} style={{backgroundColor: i}}><td> </td></tr>);
     //const seatMapRows =<tr><td style={{backgroundColor: passengerColor[0]}}></td></tr>;
     const seatMapRows =<tr>
@@ -148,15 +140,16 @@ class Homepage extends React.Component {
     <td bgcolor = {passengerColor[6]}></td>
     <td bgcolor = {passengerColor[7]}></td>
     <td bgcolor = {passengerColor[8]}></td>
-    <td bgcolor = {passengerColor[9]}></td></tr>;
+    <td bgcolor = {passengerColor[9]}></td>
+    </tr>;
     console.log(passengerColor);
 	return (
 	<div>
 		{/*Q2. Placeholder for Homepage code that shows free seats visually.*/}
-    <h3>
-         {'Visual Representation of reserved/unreserved tickets.'}
+    <h3 style = {hstyle}>
+         {'Visual Representation of Reserved/Unreserved Tickets.'}
     </h3>
-    <table className="Display Travellers" width="300">
+    <table className="Display Travellers" width="500">
       <thead>
         <tr>
 	  {/*Q3. Below table is just an example. Add more columns based on the traveller attributes you choose.*/}
@@ -189,6 +182,7 @@ class TicketToRide extends React.Component {
     this.showSelector = this.showSelector.bind(this); //"bind" method is used to pass the context (e.g. "this") to javascript function when it will trigger.
     this.bookTraveller = this.bookTraveller.bind(this);
     this.deleteTraveller = this.deleteTraveller.bind(this);
+    
   }
 
   showSelector(count)
@@ -241,15 +235,6 @@ class TicketToRide extends React.Component {
       this.setState({ID: ID, passengerNumber: passengerNumber, passengerColor: passengerColor});
       alert("Added Successfully!");
     }
-    //this.state.travellers.push(newpassenger);
-    //this.setState({ID: ID, passengerNumber: passengerNumber});
-    //this.state.travellers.forEach(element => {
-      //if (element.name != passenger){newlist.push(element)};
-    //});
-    //this.setState({travellers:newlist})
-    //console.log(this.state.travellers);
-    //console.log(newlist)
-    //    this.props.addfunction(form.travellername.value, form.travellerage.value, form.travellerphone.value, form.travelleremail.value);
   
   }
 
@@ -289,20 +274,14 @@ class TicketToRide extends React.Component {
         }
       }
 
-    // this.state.travellers.forEach(element => {
-    //   if (element.name != passenger){newlist.push(element)};
-    // });
-    // this.setState({travellers:newlist})
-    // console.log(this.state.travellers);
-    // console.log(newlist)
-
   }
   
   render() {
     const showSelectorCount = this.state.showSelectorCount;
+    const hstyle = {color: 'green'};
     return (
-      <div>
-        <h1>Ticket To Ride</h1>
+      <div style={{backgroundColor: "#E1DFF5", lineHeight : 2, addingTop: "100px"}} >
+        <h1 style={hstyle}>Ticket To Ride</h1>
 	      <div>
 	      {/*Q2. Code for Navigation bar. Use basic buttons to create a nav bar. Use states to manage selection.*/}
 
@@ -316,7 +295,7 @@ class TicketToRide extends React.Component {
           </nav>
 	    </div>
 
-	      <div>
+	      <div style={{backgroundColor: "#D7F399"}}>
 		      {/*Only one of the below four divisions is rendered based on the button clicked by the user.*/}
 		      {/*Q2 and Q6. Code to call Instance that draws Homepage. Homepage shows Visual Representation of free seats.*/}
           {showSelectorCount == 0 ? <Homepage passengerColor={this.state.passengerColor}/> : null}
