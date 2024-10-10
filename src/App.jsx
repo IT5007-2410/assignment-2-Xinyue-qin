@@ -197,7 +197,7 @@ class TicketToRide extends React.Component {
         <nav>
             <ul className = "nav_menu">
               <li onClick={() => this.showSelector(0)}><a href = "#">Home</a></li>
-              <li onClick={() => this.showSelector(1)}><a href = "#"></a>Display</li>
+              <li onClick={() => this.showSelector(1)}><a href = "#">Display</a></li>
               <li onClick={() => this.showSelector(2)}><a href = "#">Add</a></li>
               <li onClick={() => this.showSelector(3)}><a href = "#">Delete</a></li>
             </ul>
