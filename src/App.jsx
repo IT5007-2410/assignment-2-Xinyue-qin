@@ -26,11 +26,15 @@ var currentID = 2;
 // }
 
 class Display extends React.Component {
+  constructor() {
+    super();
+  }
   render() {
     const traveller = this.props.travellerprop;
 	/*Q3. Write code to render rows of table, reach corresponding to one traveller. Make use of the TravellerRow function that draws one row.*/
     const TravellerRows = traveller.map(i=><tr key={i.id}><td>{i.id}</td><td>{i.name}</td><td>{i.age}</td><td>{i.phone}</td><td>{i.email}</td><td>{i.bookingTime}</td></tr>); //add key = {i.id} (unique ID) here as the key
   return (
+    
     <table className="bordered-table">
       <thead>
         <tr>
@@ -122,15 +126,18 @@ class Homepage extends React.Component {
 class TicketToRide extends React.Component {
   constructor() {
     super();
-    this.state = { travellers: [], selector: 1};
+    this.state = { travellers: [], showSelectorCount: 0};
+    this.showSelector = this.showSelector.bind(this);
     this.bookTraveller = this.bookTraveller.bind(this);
     this.deleteTraveller = this.deleteTraveller.bind(this);
   }
 
-  setSelector(value)
+  showSelector(count)
   {
   	/*Q2. Function to set the value of component selector variable based on user's button click.*/
+    this.setState({ showSelectorCount: count});
   }
+
   componentDidMount() {
     this.loadData();
   }
@@ -180,21 +187,33 @@ class TicketToRide extends React.Component {
   }
   
   render() {
+    const showSelectorCount = this.state.showSelectorCount;
     return (
       <div>
         <h1>Ticket To Ride</h1>
 	      <div>
 	      {/*Q2. Code for Navigation bar. Use basic buttons to create a nav bar. Use states to manage selection.*/}
-	      </div>
+
+        <nav>
+            <ul className = "nav_menu">
+              <li onClick={() => this.showSelector(0)}><a href = "#">Home</a></li>
+              <li onClick={() => this.showSelector(1)}><a href = "#"></a>Display</li>
+              <li onClick={() => this.showSelector(2)}><a href = "#">Add</a></li>
+              <li onClick={() => this.showSelector(3)}><a href = "#">Delete</a></li>
+            </ul>
+          </nav>
+	    </div>
+
 	      <div>
 		      {/*Only one of the below four divisions is rendered based on the button clicked by the user.*/}
 		      {/*Q2 and Q6. Code to call Instance that draws Homepage. Homepage shows Visual Representation of free seats.*/}
-		      {/*Q3. Code to call component that Displays Travellers.*/}
-    <Display travellerprop={this.state.travellers}/>
-		      {/*Q4. Code to call the component that adds a traveller.*/}
-    <Add addfunction={this.bookTraveller}/>
-		      {/*Q5. Code to call the component that deletes a traveller based on a given attribute.*/}
-    <Delete deletefunction={this.deleteTraveller}/>
+          {showSelectorCount == 0 ? <Add addfunction={this.bookTraveller}/> : null}
+          		      {/*Q3. Code to call component that Displays Travellers.*/}
+          {showSelectorCount == 1 ? <Display travellerprop={this.state.travellers}/> : null}
+                    		      {/*Q4. Code to call the component that adds a traveller.*/}
+          {showSelectorCount == 2 ?<Add addfunction={this.bookTraveller}/> : null}
+                    		      {/*Q5. Code to call the component that deletes a traveller based on a given attribute.*/}
+          {showSelectorCount == 3 ? <Delete deletefunction={this.deleteTraveller}/> : null}
 	      </div>
       </div>
     );
