@@ -225,22 +225,21 @@ class TicketToRide extends React.Component {
       alert("No free seats now!");
     } else {
       if (passengerNumber < 10){
-        for (let i = 0; i < 10-passengerNumber; i++) {
-          passengerColor.push('green');
+        for (let i = 0; i <= 9 - passengerNumber; i++) {
+          passengerColor.push('green'); //empty seats: green
       }
-        for (let i = 0; i < passengerNumber; i++) {
-          passengerColor.push('grey');
+        for (let i = 0; i <= passengerNumber - 1; i++) {
+          passengerColor.push('grey'); //occupied seats: grey
       }
     }
       else {      
-        for (let i = 0; i < 10-passengerNumber; i++) {
+        for (let i = 0; i < 10; i++) {
           passengerColor.push('grey');
         }
       }
       this.state.travellers.push(newpassenger);
       this.setState({ID: ID, passengerNumber: passengerNumber, passengerColor: passengerColor});
-      alert("Added!");
-
+      alert("Added Successfully!");
     }
     //this.state.travellers.push(newpassenger);
     //this.setState({ID: ID, passengerNumber: passengerNumber});
@@ -261,8 +260,9 @@ class TicketToRide extends React.Component {
     var newlist = [];
     var newpassengerNumber = 0;
     var passengerNumber = this.state.passengerNumber;
+    var passengerColor =this.state.passengerColor;
     if (passengerNumber < 1) {//overflow case assuming that the train has 10 seats in total
-      alert("No passenger could be deleted now!");
+      alert("No passenger could be deleted now!"); //0 passenger available
     } else {
       this.state.travellers.forEach(i => {
         if (i.name != passenger){
@@ -276,8 +276,16 @@ class TicketToRide extends React.Component {
           alert("Sorry, fail to find passenger!");
         }
         else{
+          var passengerColor = [];
           this.setState({passengerNumber: newpassengerNumber});
           alert("Deletion Done!");
+          for (let i = 0; i <= 9 - newpassengerNumber; i++) {
+            passengerColor.push('green'); //empty seats: green
+        }
+          for (let i = 0; i <= newpassengerNumber - 1; i++) {
+            passengerColor.push('grey'); //occupied seats: grey
+        }
+        this.setState({passengerColor: passengerColor});
         }
       }
 
